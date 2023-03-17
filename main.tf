@@ -6,69 +6,36 @@ provider "azurerm" {
 
 data "azurerm_client_config" "current" {}
 
-variable "resource_group_name" {
-  type        = string
-}
 
-variable "apim_name" {
-  type        = string
-}
-
-variable "apim-api-name" {
-  type        = string
-}
-
-variable "apim-api-revision" {
-  type        = string
-}
-
-variable "apim-api-display-name" {
-  type        = string
-}
-
-variable "apim-api-path" {
-  type        = string
-}
-
-variable "client_services" {
-  type        = string
-}
-
-variable "version_set_name" {
-  type        = string
+resource "azurerm_api_management_product" "apiMgmtProductDemo" {
+  product_id    = "apim-demo"
+  display_name  = "APIM Demo"
+  description   = "A demo Product"
+  subscription_required = true
+  approval_required = true
+  resource_group_name = var.resource_group_name
+  api_management_name = var.apim_name
+  published = true
+  subscriptions_limit = 2
+  terms = "you better accept this or else... ;-)"
 }
 
 
 
-# resource "azurerm_api_management_product" "apiMgmtProductDemo" {
-#   product_id    = "apim-demo"
-#   display_name  = "APIM Demo"
-#   description   = "A demo Product"
-#   subscription_required = true
-#   approval_required = true
-#   resource_group_name = var.resource_group_name
-#   api_management_name = var.apim_name
-#   published = true
-#   subscriptions_limit = 2
-#   terms = "you better accept this or else... ;-)"
-# }
 
-
-
-
-# resource "azurerm_api_management_api_operation_policy" "testapi_getop_policy" {
-#   api_name            = azurerm_api_management_api_operation.testapi_getop.api_name
-#   api_management_name = azurerm_api_management_api_operation.testapi_getop.api_management_name
-#   resource_group_name = azurerm_api_management_api_operation.testapi_getop.resource_group_name
-#   operation_id        = azurerm_api_management_api_operation.testapi_getop.operation_id
-#   xml_content = <<XML
-#                 <policies>
-#                   <inbound>
-#                     <mock-response status-code="200" content-type="application/json"/>
-#                   </inbound>
-#                 </policies>
-#                 XML
-# }
+resource "azurerm_api_management_api_operation_policy" "testapi_getop_policy" {
+  api_name            = azurerm_api_management_api_operation.testapi_getop.api_name
+  api_management_name = azurerm_api_management_api_operation.testapi_getop.api_management_name
+  resource_group_name = azurerm_api_management_api_operation.testapi_getop.resource_group_name
+  operation_id        = azurerm_api_management_api_operation.testapi_getop.operation_id
+  xml_content = <<XML
+                <policies>
+                  <inbound>
+                    <mock-response status-code="200" content-type="application/json"/>
+                  </inbound>
+                </policies>
+                XML
+}
 
 
 resource "azurerm_api_management_api_version_set" "demo-api-versionset" {
