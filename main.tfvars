@@ -1,0 +1,8 @@
+apim_name = "apim-qa-dc"
+resource_group_name = "APIMDemoQAResourceGroup-EUS1"
+apim-api-path = "mock-api-v1"
+apim-api-display-name = "mock-api"
+apim-api-name = "mock-api"
+apim-api-revision = "rev1"
+client_services = "2"
+version_set_name = "demo-version-set"
